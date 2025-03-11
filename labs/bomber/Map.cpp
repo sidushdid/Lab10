@@ -2,18 +2,21 @@
 
 // Member Functions
 Map::Map(std::istream& stream){
-    y_size = std::count(std::istreambuf_iterator<char>(stream), std::istreambuf_iterator<char>(), '\n');
+    
+    std::vector<std::string> vect;
     std::string temp;
-    stream >> temp;
-    x_size = temp.size();
+    while(stream >> temp){
+        vect.push_back(temp);
+    }
+    y_size = vect.size();
+    x_size = vect[0].size();
     map = new char*[y_size];
-    size_t size = 0;
-    do{
-        map[size] = new char[x_size];
-        for(size_t i = 0; i < x_size; i++){
-            map[size][i] = temp[i];
+    for(size_t i = 0; i < y_size; i++){
+        map[i] = new char[x_size];
+        for(size_t j = 0; j < x_size; j++){
+            map[i][j] = vect[i][j];
         }
-    }while(stream >> temp);
+    }
 }
 
 Map::~Map(){
@@ -26,3 +29,13 @@ Map::~Map(){
 std::string Map::route(Point src, Point dst){
     return "Stub";
 }
+
+void Map::print(){
+    for(size_t i = 0; i < y_size; i++){
+        for(size_t j = 0; j < x_size; j++){
+            std::cout << map[i][j];
+        }
+        std::cout << "\n";
+    }
+}
+

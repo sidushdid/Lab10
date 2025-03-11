@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <string>
-#include <iterator>
-#include <algorithm>
+#include <sstream>
+#include <vector>
 
 #include "Point.h"
 
@@ -17,8 +17,7 @@ class Map {
 public:
     Map(std::istream& stream);
     ~Map();
-    // ~Map();
-
+    void print();
     std::string route(Point src, Point dst);
 };
 
