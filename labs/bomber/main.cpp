@@ -27,7 +27,6 @@ int main(int argc, char** argv) {
   }
 
   Map map(stream);
-
   while(true) {
     Point src;
     Point dst;

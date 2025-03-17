@@ -1,4 +1,4 @@
-CXXFLAGS = -g -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter -O3
+CXXFLAGS = -g -std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter
 CXX      = g++
 
 # These targets don't create any files:
