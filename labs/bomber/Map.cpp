@@ -108,4 +108,3 @@ void Map::print(){
         std::cout << "\n";
     }
 }
-

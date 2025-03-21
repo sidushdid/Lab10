@@ -46,13 +46,13 @@ input.  Then exit.
 ......
 ###.##
 .....#
-[ariadne@naxos]$ ./bomber data/map.txt
+[ariadne@naxos]$ ./bomber -i data/map.txt
 src> 0 0
 dst> 4 0
 eessesswww
 src> 4 0
 dst> 0 4
-eeennwwnneeee
+eeennwwnneee
 src> 0 4
 dst> 4 0
 No route from (0, 4) to (4, 0).
@@ -113,6 +113,7 @@ When entering or displaying points, latitude comes before longitude.
   can't walk on the terrain at that point.
 - A destination point is only invalid if its coordinates are out of bounds.
 - You always start without any bombs.
+- You can carry any number of bombs.
 - If you start on a square with a bomb, you immediately pick it up.
 - All  routes are for the  original map.  Any changes  you make to the map while
   calculating one route need to be reset before calculating the next route.
@@ -129,3 +130,7 @@ When entering or displaying points, latitude comes before longitude.
   the `-O3` flag to enable extra compiler optimizations.
 - The autograder will always run your program with exactly one command line
   argument, which will be a valid path to a valid map file.
+- The autograder will compile your `main.cpp` file and all other `.cpp` files in
+  the `labs/bomber` directory whose names start with capital letters. So you can
+  organize your code as you see fit.
+- The constructor and error test cases use the `tnt-101.txt` map.
