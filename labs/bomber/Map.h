@@ -7,6 +7,7 @@
 #include <vector>
 #include <queue>
 #include <unordered_map>
+#include <unordered_set>
 
 #include "Point.h"
 #include "Errors.h"
@@ -25,6 +26,10 @@ class Map {
         std::string path;
         int bomb;
         Point* goal;
+        std::unordered_set<std::string> treat_as_ground;
+        State(int x, int y, int g, std::string path, int bomb, Point* goal, std::unordered_set<std::string> treat_as_ground) : x(x), y(y), g(g), path(path), bomb(bomb), goal(goal), treat_as_ground(treat_as_ground) {
+            f = g + manhattanDistance();
+        }
         State(int x, int y, int g, std::string path, int bomb, Point* goal) : x(x), y(y), g(g), path(path), bomb(bomb), goal(goal) {
             f = g + manhattanDistance();
         }
@@ -40,7 +45,7 @@ class Map {
 private:
 //helper function
     bool isValid(int x, int y);
-    bool isWalkable(int x, int y, int bombs);
+    bool isWalkable(int x, int y, int bombs, std::unordered_set<std::string> treat_as_ground);
 public:
     Map(std::istream& stream);
     ~Map();
