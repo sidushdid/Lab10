@@ -30,9 +30,6 @@ class Map {
         State(int x, int y, int g, std::string path, int bomb, Point* goal, std::unordered_set<std::string> treat_as_ground) : x(x), y(y), g(g), path(path), bomb(bomb), goal(goal), treat_as_ground(treat_as_ground) {
             f = g + manhattanDistance();
         }
-        State(int x, int y, int g, std::string path, int bomb, Point* goal) : x(x), y(y), g(g), path(path), bomb(bomb), goal(goal) {
-            f = g + manhattanDistance();
-        }
 
         int manhattanDistance() const {
             return std::abs(x - goal->lat) + std::abs(y - goal->lng);

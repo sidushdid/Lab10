@@ -45,8 +45,13 @@ std::string Map::route(Point src, Point dst){
     std::priority_queue<State> minHeap; //functions as a minHeap calculating for f
     std::unordered_map<std::string, int> visited; //store visited states
     int starting_bomb = 0;
-    if(map[src.lat][src.lng] == '*') starting_bomb ++;
-    minHeap.push(State(src.lng, src.lat, 0, "", starting_bomb, &dst)); //pushing in the initial state
+    std::unordered_set<std::string> temp;
+    
+    if(map[src.lat][src.lng] == '*'){
+        starting_bomb ++;
+        temp.insert(std::to_string(src.lat) + " " + std::to_string(src.lng));
+    } 
+    minHeap.push(State(src.lng, src.lat, 0, "", starting_bomb, &dst, temp)); //pushing in the initial state
     while(!minHeap.empty()){
         State curr = minHeap.top();
         minHeap.pop();
@@ -61,6 +66,7 @@ std::string Map::route(Point src, Point dst){
         }
 
         visited[key] = curr.g;
+        std::cout << curr.bomb << "\n" << curr.x << " " <<  curr.y << "\n";
 
         for(size_t i = 0; i < directions.size(); i++){
             int newY = curr.y + directions[i].first;
@@ -74,6 +80,7 @@ std::string Map::route(Point src, Point dst){
             int newBomb = curr.bomb;
             char cell = map[newY][newX];
             std::unordered_set<std::string> new_treat_as_ground = curr.treat_as_ground;
+            
             if(curr.treat_as_ground.find(std::to_string(newY) + " " + std::to_string(newX)) == curr.treat_as_ground.end() && cell == '*'){
                 newBomb++;
                 new_treat_as_ground.insert(std::to_string(newY) + " " + std::to_string(newX));
