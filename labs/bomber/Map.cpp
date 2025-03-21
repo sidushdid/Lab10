@@ -66,7 +66,6 @@ std::string Map::route(Point src, Point dst){
         }
 
         visited[key] = curr.g;
-        std::cout << curr.bomb << "\n" << curr.x << " " <<  curr.y << "\n";
 
         for(size_t i = 0; i < directions.size(); i++){
             int newY = curr.y + directions[i].first;
