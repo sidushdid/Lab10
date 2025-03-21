@@ -55,12 +55,12 @@ std::string Map::route(Point src, Point dst){
             return curr.path;
         }
         
-        std::string key = std::to_string(curr.y) + "," + std::to_string(curr.x);
-        if(visited.find(key) != visited.end() && visited[key] <= curr.bomb){
+        std::string key = std::to_string(curr.y) + "," + std::to_string(curr.x) + "," + std::to_string(curr.bomb);
+        if(visited.find(key) != visited.end() && visited[key] <= curr.g){
             continue;
         }
 
-        visited[key] = curr.bomb;
+        visited[key] = curr.g;
 
         for(size_t i = 0; i < directions.size(); i++){
             int newY = curr.y + directions[i].first;
