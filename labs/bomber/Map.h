@@ -8,6 +8,7 @@
 #include <queue>
 #include <unordered_map>
 #include <unordered_set>
+#include <fstream>
 
 #include "Point.h"
 #include "Errors.h"
@@ -42,6 +43,7 @@ class Map {
     };
 private:
 //helper function
+    void debug(std::string route, int startY, int startX, std::ofstream &out);
     bool isValid(int x, int y);
     bool isWalkable(int x, int y, int bombs, std::unordered_set<std::string> treat_as_ground);
 public:
