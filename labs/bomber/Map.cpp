@@ -61,7 +61,7 @@ std::string Map::route(Point src, Point dst){
         }
         
         std::string key = std::to_string(curr.y) + "," + std::to_string(curr.x) + "," + std::to_string(curr.bomb);
-        if(visited.find(key) != visited.end() && visited[key] <= curr.g){
+        if(visited.find(key) != visited.end()){
             continue;
         }
 
