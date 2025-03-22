@@ -17,6 +17,7 @@ class Map {
     // Member Variables
     const std::vector<std::pair<int, int>> directions = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
     const std::vector<char> moves = {'n', 'e', 's', 'w'};
+    std::unordered_map<std::string, std::string> past; 
     char** map;
     size_t x_size;
     size_t y_size;
