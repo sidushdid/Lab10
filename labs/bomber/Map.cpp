@@ -41,6 +41,8 @@ bool Map::isWalkable(int y, int x, int bombs, std::unordered_set<std::string> tr
 std::string Map::route(Point src, Point dst){
     if(!isValid(src.lat, src.lng) || !isWalkable(src.lat, src.lng, 0, std::unordered_set<std::string>()))throw PointError(src);//checking for point error of the starting point
     if(!isValid(dst.lat, dst.lng)) throw PointError(dst);//checking for point error of the ending point
+    std::string pastPath = std::to_string(src.lng) + " " + std::to_string(src.lat) + " " + std::to_string(dst.lng) + " " + std::to_string(dst.lat);
+    if(past.find(pastPath) != past.end()) return past[pastPath]; // Check if we've visited this before
 
     std::priority_queue<State> minHeap; //functions as a minHeap calculating for f
     std::unordered_map<std::string, int> visited; //store visited states
@@ -57,12 +59,9 @@ std::string Map::route(Point src, Point dst){
         minHeap.pop();
         
         if(curr.y == dst.lat && curr.x == dst.lng){
+            past[pastPath] = curr.path;
+
             return curr.path;
-        }
-        
-        std::string key = std::to_string(curr.y) + "," + std::to_string(curr.x) + "," + std::to_string(curr.bomb);
-        if(visited.find(key) != visited.end() && visited[key] <= curr.g){
-            continue;
         }
 
         visited[key] = curr.g;
