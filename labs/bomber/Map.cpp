@@ -42,6 +42,8 @@ std::string Map::route(Point src, Point dst){
     if(!isValid(src.lat, src.lng) || !isWalkable(src.lat, src.lng, 0, std::unordered_set<std::string>()))throw PointError(src);//checking for point error of the starting point
     if(!isValid(dst.lat, dst.lng)) throw PointError(dst);//checking for point error of the ending point
 
+    //std::ofstream out;
+    //out.open("output_file.txt");
     std::priority_queue<State> minHeap; //functions as a minHeap calculating for f
     std::unordered_map<std::string, int> visited; //store visited states
     int starting_bomb = 0;
@@ -52,6 +54,7 @@ std::string Map::route(Point src, Point dst){
         temp.insert(std::to_string(src.lat) + " " + std::to_string(src.lng));
     } 
     minHeap.push(State(src.lng, src.lat, 0, "", starting_bomb, &dst, temp, 0)); //pushing in the initial state
+
     while(!minHeap.empty()){
         State curr = minHeap.top();
         minHeap.pop();
@@ -61,12 +64,13 @@ std::string Map::route(Point src, Point dst){
         }
         
         std::string key = std::to_string(curr.y) + "," + std::to_string(curr.x) + "," + std::to_string(curr.bomb);
-        if(visited.find(key) != visited.end()){
+        if(visited.find(key) != visited.end() && visited[key] <= curr.g){
             continue;
         }
 
         visited[key] = curr.g;
-
+        
+        //debug(curr.path, src.lat, src.lng, out);
         for(size_t i = 0; i < directions.size(); i++){
             int newY = curr.y + directions[i].first;
             int newX = curr.x + directions[i].second;
@@ -99,6 +103,7 @@ std::string Map::route(Point src, Point dst){
             minHeap.push(State(newX, newY, newG, newPath, newBomb, &dst, new_treat_as_ground,newWallEncountered));
         }
     }
+    //out.close();
     throw RouteError(src,dst);
 }
 
