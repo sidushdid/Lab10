@@ -27,8 +27,9 @@ class Map {
         int bomb;
         Point* goal;
         std::unordered_set<std::string> treat_as_ground;
-        State(int x, int y, int g, std::string path, int bomb, Point* goal, std::unordered_set<std::string> treat_as_ground) : x(x), y(y), g(g), path(path), bomb(bomb), goal(goal), treat_as_ground(treat_as_ground) {
-            f = g + manhattanDistance() - bomb*bomb;
+        int wall_encountered;
+        State(int x, int y, int g, std::string path, int bomb, Point* goal, std::unordered_set<std::string> treat_as_ground, int wall_encountered) : x(x), y(y), g(g), path(path), bomb(bomb), goal(goal), treat_as_ground(treat_as_ground), wall_encountered(wall_encountered) {
+            f = g + 100*manhattanDistance() - bomb*500 + wall_encountered * 500;
         }
 
         int manhattanDistance() const {

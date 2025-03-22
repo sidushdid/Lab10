@@ -51,7 +51,7 @@ std::string Map::route(Point src, Point dst){
         starting_bomb ++;
         temp.insert(std::to_string(src.lat) + " " + std::to_string(src.lng));
     } 
-    minHeap.push(State(src.lng, src.lat, 0, "", starting_bomb, &dst, temp)); //pushing in the initial state
+    minHeap.push(State(src.lng, src.lat, 0, "", starting_bomb, &dst, temp, 0)); //pushing in the initial state
     while(!minHeap.empty()){
         State curr = minHeap.top();
         minHeap.pop();
@@ -77,6 +77,7 @@ std::string Map::route(Point src, Point dst){
 
             //updating bomb number
             int newBomb = curr.bomb;
+            int newWallEncountered = curr.wall_encountered;
             char cell = map[newY][newX];
             std::unordered_set<std::string> new_treat_as_ground = curr.treat_as_ground;
             
@@ -87,6 +88,7 @@ std::string Map::route(Point src, Point dst){
             else if(curr.treat_as_ground.find(std::to_string(newY) + " " + std::to_string(newX)) == curr.treat_as_ground.end() && cell == '#'){
                 newBomb--;
                 new_treat_as_ground.insert(std::to_string(newY) + " " + std::to_string(newX));
+                newWallEncountered++;
             }
             
             //update new path
@@ -94,7 +96,7 @@ std::string Map::route(Point src, Point dst){
             
             //updating g
             int newG = curr.g + 1;
-            minHeap.push(State(newX, newY, newG, newPath, newBomb, &dst, new_treat_as_ground));
+            minHeap.push(State(newX, newY, newG, newPath, newBomb, &dst, new_treat_as_ground,newWallEncountered));
         }
     }
     throw RouteError(src,dst);
