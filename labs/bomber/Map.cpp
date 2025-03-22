@@ -31,7 +31,7 @@ bool Map::isValid(int y, int x){
 }
 
 bool Map::isWalkable(int y, int x, int bombs, std::unordered_set<std::string> treat_as_ground) {
-    if(treat_as_ground.find(y + " " + x) != treat_as_ground.end()) return true;
+    if(treat_as_ground.find(std::to_string(y) + " " + std::to_string(x)) != treat_as_ground.end()) return true;
     char cell = map[y][x];
     if (cell == '~') return false; 
     if (cell == '#' && bombs == 0) return false;
