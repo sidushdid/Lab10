@@ -110,3 +110,75 @@ void Map::print(){
         std::cout << "\n";
     }
 }
+
+void Map::debug(std::string route, int startY, int startX, std::ofstream& out){
+
+    char temp[y_size][x_size];
+
+    for(size_t i = 0 ;i < y_size; i++){
+
+        for(size_t j = 0; j < x_size; j++){
+
+            temp[i][j] = map[i][j];
+
+        }
+
+    }
+
+    int currY = startY;
+
+    int currX = startX;
+
+    temp[currY][currX] = '$';
+
+    for(size_t i = 0; i < route.size(); i++){
+
+        if(route[i] == 'n'){
+
+            currY--;
+
+            temp[currY][currX] = '$';
+
+        }
+
+        else if(route[i] == 's'){
+
+            currY++;
+
+            temp[currY][currX] = '$';
+
+        }
+
+        else if(route[i] == 'e'){
+
+            currX++;
+
+            temp[currY][currX] = '$';
+
+        }
+
+        else if(route[i] == 'w'){
+
+            currX--;
+
+            temp[currY][currX] = '$';
+
+        }
+
+    }
+
+    for(size_t i = 0 ;i < y_size; i++){
+
+        for(size_t j = 0; j < x_size; j++){
+
+            out << temp[i][j];
+
+        }
+
+        out << "\n";
+
+    }
+
+    out  <<"\n";
+
+}
